@@ -1,5 +1,7 @@
 # Frontend
 
+DEMO- https://stockprojectanannya.wl.r.appspot.com/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
 
 #Instructions: Web App is hosted in GCP. To run it in local, go to api.service.ts, and uncomment baseUrl line which has localhost mentioned,

@@ -1,0 +1,59 @@
+/* .navbar {
+    background-color: #0d00ff43;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+  } */
+
+.bg-primary {
+    background-color: #002366 !important; /* Adjust the hex code to match the color you need */
+}
+
+.navbar {
+    justify-content: start; /* Align navbar items to the start */
+}
+
+.navbar-brand {
+    color: white !important; /* Make the brand text white */
+    margin-right: auto; /* Push everything else to the right */
+    margin-left: 20px;
+}
+
+/* Style the navbar links */
+.navbar-nav .nav-link {
+    color: white !important; /* Make the nav link text white */
+    margin-right: 15px; /* Space out the nav links */
+}
+
+/* Style for navbar toggle button (hamburger menu) */
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+/* Custom style for the collapse */
+.collapse {
+    justify-content: flex-end; /* Align the collapsed content to the right */
+}
+
+.nav-item button.active {
+  border: 1px solid white; /* Add border to active nav item */
+  border-radius: 10px; /* Add border-radius to active nav item */
+}
+
+  

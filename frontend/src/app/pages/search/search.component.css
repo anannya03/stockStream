@@ -1,0 +1,38 @@
+.border-color {
+    border-color:#002366 !important; 
+}
+
+.shadowNo :focus {
+    box-shadow: none !important;
+}
+
+
+.input-group>.form-control:focus,
+.input-group>.form-control:not(:disabled):not([readonly]):focus {
+    border-color: none;
+    box-shadow: none;
+}
+
+/* Override for Angular Material inputs */
+.mat-focused .mat-form-field-ripple {
+    background-color: transparent !important;
+  }
+  
+  /* Override for the input underline */
+  .mat-form-field-underline {
+    background-image: none !important;
+  }
+  
+  /* If the outline is still there, try to target the input container */
+  .mat-form-field.mat-focused .mat-form-field-ripple,
+  .mat-form-field.mat-focused .mat-form-field-outline-thick {
+    color: transparent !important;
+    background-color: transparent !important;
+  }
+  *:focus { outline: none !important; }
+
+  .c-input .c-indicator {
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+}

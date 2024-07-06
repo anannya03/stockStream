@@ -1,0 +1,14 @@
+runtime: nodejs20
+
+instance_class: F2
+
+env_variables: 
+  BUCKET_NAME: "assignment-3-csci"
+
+handlers:
+- url: /
+  static_files: dist/frontend/index.html
+  upload: dist/frontend/index.html
+
+- url: /
+  static_dir: dist/frontend

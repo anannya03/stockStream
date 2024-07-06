@@ -1,0 +1,74 @@
+.card-header {
+    background-color: #f4f1f1 !important;  
+    color: white;
+  }
+  
+  .card-footer {
+    background-color: white;
+    border-top: 0;
+  }
+  
+  .card-deck .card {
+    margin-bottom: 20px; /* Spacing between cards */
+  }
+  
+  .btn-success {
+    margin-right: 10px; /* Spacing between buttons */
+  }
+  
+  /* .success{
+    color:rgb(3, 28, 139) !important;
+  } */
+  
+  .danger {
+    color:red;
+  }
+
+  .card-footer {
+    background-color: #f4f1f1 !important;  
+  }
+
+  .stock-info .key {
+    display: inline-block;
+    margin-right: 10px; /* Or any spacing you prefer */
+    min-width: 150px; /* Adjust this to ensure alignment */
+    text-align: right; /* Align the key text to the right */
+  }
+  
+  .stock-info .value {
+    display: inline-block;
+  }
+
+  .btn {
+    margin-right: 4px !important;
+  }
+
+  .card-text-size {
+    font-size: 16px;
+  }
+  
+  .alert {
+    display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 72%;
+  text-align: center;
+  }
+
+  .message-content {
+    flex-grow: 1; /* Allows the span to grow and fill the space */
+    text-align: center; /* Centers the text within the span */
+    margin-right: auto; /* Optional: Adjust if needed for spacing */
+    margin-left: auto; /* Optional: Adjust if needed for spacing */
+  }
+
+  .stock {
+    margin-top: 0 !important; /* Ensures no top margin */
+    text-align: center !important; /* Centers the text */
+  }
+  
+  /* Add this if you want the .stock alert to be horizontally centered in the container */
+  .container-for-stock-alert {
+    display: flex;
+    justify-content: center; /* This will horizontally center the .stock alert within the container */
+  }

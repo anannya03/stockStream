@@ -1,0 +1,136 @@
+   <!-- <div class="container mt-3">
+    <h2 class="text-center mb-4">STOCK SEARCH</h2>
+    <form id="stockSearchForm">
+      <div class="input-group mb-3">
+        <input type="text" id="stockTickerInput" class="form-control" placeholder="Enter stock ticker symbol" aria-label="Stock ticker symbol" aria-describedby="button-addon2">
+        
+        <button class="btn btn-outline-primary" type="submit" id="button-search">
+          <i class="bi bi-search"></i>
+        </button>
+        
+        <button class="btn btn-outline-secondary" type="button" id="button-clear" onclick="clearSearch()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </form>
+  </div> -->
+
+  <!-- <div class="container mt-3">
+    <h2 class="text-center mb-4 title">STOCK SEARCH</h2>
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-4 rounded-pill border border-2" style="--bs-border-color: #042a71; height: 60px">
+        <form id="stockSearchForm ">
+          <div class="input-group mb-3 rounded-pill">
+
+            <input type="text" id="stockTickerInput" class="form-control rounded-pill border-0" style="margin-top: 10px;" 
+            [(ngModel)]="ticker" matInput [matAutocomplete]="auto" [formControl]="searchInput"
+            placeholder="Enter stock ticker symbol" aria-label="Stock ticker symbol" aria-describedby="button-addon2"> 
+
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-spinner diameter="40"></mat-spinner>
+              </mat-option>
+              <mat-option *ngFor="let result of searchResults" [value]="result" (click)="selectResult(result)">
+                {{result.displaySymbol}} | {{result.description}}
+              </mat-option>
+            </mat-autocomplete>
+
+            <button class="btn btn-outline-primary" type="submit" id="button-search" (click)="searchTicker($event)">
+              <i class="bi bi-search"></i>
+            </button>
+            <button class="btn btn-outline-primary" type="button" id="button-clear" (click)="clearSearch()">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <form #formSearch>
+    <div class="container">
+      <div class="row justify-content-center mt-4">
+        <div class="col-sm text-center" id="searchTitle">
+          <h1>STOCK SEARCH</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 col-sm-8 col-12 d-flex align-items-center rounded-pill border-color justify-content-center">
+          <div class="input-group">
+  
+            <input #inputTicker type="text" class="form-control rounded-pill no-border" 
+            (input)="onSearchChange($event)" [(ngModel)]="ticker" [ngModelOptions]="{standalone: true}" [matAutocomplete]="autocomplete"
+            placeholder="Enter stock ticker symbol" aria-label="Stock ticker symbol" aria-describedby="button-addon2">
+            
+            <mat-autocomplete #autocomplete="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+              <mat-option *ngIf="autoLoading && inputTicker.value" class="loading-state">
+                <mat-spinner diameter="40"></mat-spinner>
+              </mat-option>
+              <mat-option *ngFor="let stock of options" [value]="stock.symbol">
+                {{ stock.symbol }} | {{ stock.description }}
+              </mat-option>
+            </mat-autocomplete>
+  
+            <button type="submit" class="btn btn-outline-secondary no-border" id="button-search" (click)="onClick($event)">
+              <i class="bi bi-search"></i>
+            </button>
+            <button type="reset" class="btn btn-outline-info no-border" id="button-clear" (click)="reset()">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="!isResult">Hello!</div>
+  <app-company-profile [companyProfile]="companyProfile" [searchResult]="searchResult" [searchLoading]="searchLoading"></app-company-profile> -->
+
+  <form #formSearch>
+    <div class="container">
+      
+        <div class="text-center mb-4 title mt-4" id="searchTitle">
+          <h1>STOCK SEARCH</h1>
+        </div>
+     
+      <div class="row justify-content-center">
+        <div class="col-10 col-sm-8 col-md-6 col-lg-4 rounded-pill d-flex border border-2 align-items-center border-color justify-content-center" style="margin-bottom: 12px;">
+          <div class="input-group">
+  
+            <input #inputTicker type="text" class=" testName form-control rounded-pill no-border c-input c-indicator" 
+            (input)="onSearchChange($event)" [(ngModel)]="ticker" [ngModelOptions]="{standalone: true}" [matAutocomplete]="autocomplete"
+            placeholder="Enter stock ticker symbol" aria-label="Stock ticker symbol" aria-describedby="button-addon2" class="form-control border-0" >
+            
+            <mat-autocomplete #autocomplete="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+              <mat-option *ngIf="autoLoading && inputTicker.value" class="loading-state">
+                <mat-spinner diameter="40"></mat-spinner>
+              </mat-option>
+              <mat-option *ngFor="let stock of options" [value]="stock.symbol">
+                {{ stock.symbol }} | {{ stock.description }}
+              </mat-option>
+            </mat-autocomplete>
+  
+            <button type="submit" class="btn btn-outline-black no-border" id="button-search" (click)="onClick($event)">
+              <i class="bi bi-search"></i>
+            </button>
+            <button type="reset" class="btn btn-outline-black no-border" id="button-clear" (click)="reset()">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- <div *ngIf="!isResult">Hello!</div> -->
+  <div *ngIf="!isResult" class="container mt-5">
+    <div class="alert alert-danger text-center text-dark">
+        No data found. Please enter a valid Ticker.
+    </div>
+</div>
+  <app-company-profile [companyProfile]="companyProfile" [searchResult]="searchResult" [searchLoading]="searchLoading"></app-company-profile>
+
+
+
+
+  
+  
+  

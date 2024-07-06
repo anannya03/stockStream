@@ -1,0 +1,156 @@
+/* h1{
+    font-weight: 500;
+}
+.btn-close{
+    border: none;
+    background: transparent;
+}
+.text-thicker{
+    font-weight: 500;
+}
+.increase{
+    color: green;
+}
+.decrease{
+    color: red;
+}
+ */
+
+/* .card {
+    margin-bottom: 10px;
+  }
+  .stock-price {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .stock-change {
+    font-size: 1em;
+    color: red;
+  }
+  .stock-name {
+    font-size: 1.2em;
+    color: #333;
+  }
+  .remove-btn {
+    cursor: pointer;
+    color: #999;
+    font-weight: bold;
+  }
+  .remove-btn:hover {
+    color: #666;
+  } */
+
+  /* .card-container {
+    max-width: 600px; 
+    margin: 20px auto;
+  }
+
+  .card-custom {
+    height: auto; 
+    margin-bottom: 10px;
+  }
+
+  .stock-price {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .stock-change {
+    font-size: 1em;
+    color: red;
+  }
+
+  .stock-name {
+    font-size: 1.2em;
+    color: #333;
+  }
+
+  .remove-btn {
+    cursor: pointer;
+    color: #999;
+    font-weight: bold;
+  }
+
+  .remove-btn:hover {
+    color: #666;
+  }
+
+  .stock-value {
+    padding-left: 15px;
+  }
+
+  .stock-info {
+    padding-right: 15px;
+  } */
+/* 
+  .my-watchlist-heading {
+    padding-left: 15px; 
+    margin-bottom: 1rem;
+  }   */
+
+  .container {
+    overflow: auto !important;
+  }
+
+  .watchlist-header, .card-custom {
+    padding-left: 0; /* Adjust this value as needed */
+    padding-right: 0; /* Adjust this value as needed */
+  }
+  
+  /* Ensure that this class removes any additional padding or margin that might cause misalignment */
+  .btn-close {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .card-container {
+    max-width: 800px; 
+    margin: 20px auto;
+  }
+
+  .card-custom {
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+  }
+  
+  .stock-ticker {
+    font-size: 1.5em;
+  }
+  
+  .stock-price {
+    font-size: 1.5em;
+    color: #333; /* Or any color you prefer */
+  }
+  
+  .company-name {
+    font-size: 0.85em;
+    color: #666; /* Or any color you prefer */
+  }
+  
+  .percent-value {
+    font-size: 0.85em;
+    /* color will be set by the text-danger class */
+  }
+ 
+   
+  .btn-close {
+    font-size: 8px;
+    margin-bottom: 1.2%;
+    border: none;
+    color: #000;
+  }
+
+  .up{
+    color: green;
+}
+ .down{
+    color: red;
+}
+
+.no-watchlist{
+  background-color:#FEF4CD;
+  border-radius: 2px;
+  font-size: small;
+}
+  /* Additional padding might be needed based on your design */
+  

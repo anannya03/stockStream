@@ -1,0 +1,104 @@
+/* .close-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+#close-icon{
+    color: #0D6EFD;
+    border-bottom: 1px solid #0D6EFD;
+    padding-bottom: 20%;
+}
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+}
+.modal-body{
+    border-bottom: 1px solid #dee2e6;
+}
+.modal-header:last-child, .modal-body:last-child {
+    border-bottom: none;
+}
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.text-thicker{
+    font-weight: 500;
+} */
+
+.modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align the items to the start of the flex container */
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .d-flex {
+    display: flex;
+    justify-content: space-between; /* This should separate the title and the close button */
+    width: 100%; /* Ensure the flex container spans the full width */
+  }
+  
+  .close {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0; /* Remove margins that might affect the positioning */
+    font-size: 1.5rem; /* Adjust close button size as needed */
+  }
+  
+  .date-text {
+    align-self: flex-start; /* Align the date below the "Yahoo" text */
+    padding-top: 0.5rem; /* Optional: adds some space between the title and the date */
+  }
+
+  #close-icon{
+    color: #0D6EFD;
+    border-bottom: 1px solid #0D6EFD;
+    padding-bottom: 20%;
+}
+
+/* .social-share-block {
+    display: flex;
+    align-items: center;
+    background: #fff; 
+    border-radius: 25px; 
+    border: 1px solid #ccc;
+  }
+  
+  .social-icon {
+    color: #000; 
+    margin-right: 15px;
+  } */
+
+  .social-share-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .share-text {
+    margin-bottom: 20px !important; /* Adjust the space between the text and the icons */
+  }
+  
+  .social-icon {
+    color: #000;
+    margin-bottom: 5px; /* Adjust the space between icons if necessary */
+    /* The icons are already left-aligned due to the flex-start on the container */
+  }
+
+  .icons {
+    display: flex;
+  }
+  
+  

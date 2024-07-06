@@ -1,0 +1,373 @@
+<div class="container">
+<div class="container mt-3 d-flex justify-content-center align-items-center" *ngIf="searchLoading && !companyProfile">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+<div *ngIf="wishlistMessage" class="container">
+    <div class="d-flex flex-row justify-content-center align-items-center">
+ <div [ngClass]="{'alert-success': alertType === 'add', 'alert-danger': alertType === 'remove'}" class="alert">
+    <span class="message-content">{{ wishlistMessage }}</span>
+    <!-- {{ wishlistMessage }} -->
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</div>  
+</div>
+
+  <div *ngIf="tradeStockMessage">
+    <div class="d-flex flex-row justify-content-center align-items-center">
+<div  [ngClass]="{'alert-success': alertTypeBuy === 'buy', 'alert-danger': alertTypeBuy === 'sell'}" class="alert">
+    <span class="message-content">{{ tradeStockMessage }}</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>  
+</div>
+  
+<div *ngIf="companyProfile" class="pb-4">
+    <div class="container my-4" *ngIf="!isError">
+        <div class="row justify-content-center">
+            <div class="col text-center" *ngIf="searchResult && searchResult.profile">
+                <!-- <div class="d-flex justify-content-center align-items-center"> -->
+                    <div class="d-flex flex-row justify-content-center align-items-center">
+                        <h1 class="m-0 p-0" style="font-weight: 500;">{{ searchResult.profile.ticker }}</h1>
+                        <button class="btn-star" (click)="updateWishlist(searchResult.profile.ticker, searchResult.profile.name)" *ngIf="!isFavorite">
+                            <fa-icon [icon]="farStar"></fa-icon>
+                          </button>
+                          <button class="btn-star" (click)="updateWishlist(searchResult.profile.ticker)" *ngIf="isFavorite">
+                            <fa-icon [icon]="faStar" style="color: rgb(219, 206, 29);"></fa-icon>
+                          </button>
+                    </div>
+                <!-- </div> -->
+                <h2 class="m-0" style="color:rgb(91, 97, 103);">{{searchResult.profile.name}}</h2>
+                <div>{{searchResult.profile.exchange}}</div>
+                <div class="mt-2">
+                    <button (click)="stockModal(true)" class="btn btn-success shadow-none btn-no-caps " style="margin-right:3px;">Buy</button>
+                    <button (click)="stockModal(false)" *ngIf="isHolding" class="btn btn-danger shadow-none btn-no-caps">Sell</button>
+                </div>
+            </div>
+            <div class="responsive-square col-sm-2">
+                <img src="{{searchResult.profile.logo}}" alt="Company Logo" class="company-logo">
+            </div>
+            <div class="col text-center justify-content-center" *ngIf="searchResult && searchResult.quote">
+                <div *ngIf="searchResult.quote.d > 0" style="color: green">
+                    <h1 class="m-0" style="font-weight: 500;">{{searchResult.quote.c}}</h1>
+                    <div class="d-none d-md-inline-block">
+                        <span class="text-success change-value" style="font-size: 16px;">▲ {{searchResult.quote.d}}({{searchResult.quote.dp | number:'1.2-2' }}%)</span>
+                      </div>
+                      <div class="d-md-none">
+                        <div><span class="text-success change-value">▲ {{searchResult.quote.d}}</span></div>
+                        <div><span class="text-success change-percentage">({{searchResult.quote.dp | number:'1.2-2' }}%)</span></div>
+                      </div>
+                    <!-- <h2 class="m-1">▲ {{searchResult.quote.d}}<span class="col-sm-2">({{searchResult.quote.dp}}%)</span></h2> -->
+                </div>
+                <div *ngIf="searchResult.quote.d <= 0" style="color: red">
+                    <h1 class="m-0" style="font-weight: 500;">{{searchResult.quote.c}}</h1>
+                    <div class="d-none d-md-inline-block">
+                        <span class="text-danger change-value" style="font-size: 16px;">▼ {{searchResult.quote.d}}({{searchResult.quote.dp | number:'1.2-2' }}%)</span>
+                      </div>
+                      <div class="d-md-none">
+                        <div><span class="text-danger change-value">▼ {{searchResult.quote.d}}</span></div>
+                        <div><span class="text-danger change-percentage">({{searchResult.quote.dp | number:'1.2-2' }}%)</span></div>
+                      </div>
+                    <!-- <h2 class="m-1">▼ {{searchResult.quote.d}}({{searchResult.quote.dp}}%)</h2> -->
+                </div>
+                <div class="mt-1">{{currentTime}}</div>
+            </div>
+        </div>
+        <div class="text-center font-weight-bold mt3 mb-3">
+            <p *ngIf="!marketStatus" style="color:green; font-weight: bold; margin-top: 10px;">Market is Open</p>
+            <p *ngIf="marketStatus" style="color:red; font-weight: bold; margin-top: 10px;">Market is Closed on {{prevTime}}</p>
+        </div>
+    </div>
+
+    
+    <div class="container mt-4" *ngIf="searchResult && !isError">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-12 col-sm-11 col-md-10">
+                
+                <mat-tab-group dynamicHeight mat-align-tabs="center dynamicHeight mat-stretch-tabs">
+                    <mat-tab label="Summary">
+                        <div class="row">
+                            <div class="col-md-6 text-center text-md-left">
+                                <div class="row ">
+                                    <div class="col-12 col-md-6 text-center text-md-left mt-4 summary-content">
+                                        <b>High Price:</b> {{searchResult.quote.h | number:'1.2-2'}}
+                                        <br>
+                                        <b>Low Price:</b> {{searchResult.quote.l | number:'1.2-2'}}
+                                        <br>
+                                        <b>Open Price:</b> {{searchResult.quote.o | number:'1.2-2'}}
+                                        <br>
+                                        <b>Prev. Close:</b> {{searchResult.quote.pc | number:'1.2-2'}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-center mt-4">
+                                        <h3 class="m-0"><b><u>About the company</u></b></h3>
+                                        <br>
+                                        <p><b>IPO Start Date:</b> {{searchResult.profile.ipo}}</p>
+                                        <p><b>Industry:</b> {{searchResult.profile.finnhubIndustry}}</p>
+                                        <p><b>Webpage: </b> <a href="{{searchResult.profile.weburl}}" target="_blank">{{searchResult.profile.weburl}}</a></p>
+                                        <p><b>Company peers:</b></p>
+                                        <span *ngFor="let peer of searchResult.peers">
+                                            <a (click)="onPeerClick(peer)" class="peer-link">{{peer}}</a>,
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <highcharts-chart 
+                                [Highcharts]="hourDataCharts"
+                                [options]="hourlyOptions"
+                                [constructorType]="hourlyConstructor"
+                                style="width: 100%; height: 325px; display: block;">
+                                </highcharts-chart>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <!-- <mat-tab label="Top News">
+                        <div class="row mt-4">
+                            <div class="col-12 col-md-6 mb-4" *ngFor="let newsItem of newsData" (click)="newsModal(newsItem)">
+                                <div class="card news-card d-flex justify-content-center bg-light">
+                                    <div class="row">
+                                        <div class="col-4 p-0 d-flex justify-content-center">
+                                            <img [src]="newsItem.image" class="card-img my-auto" alt="...">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="card-body">
+                                                <h5 class="card-headline text-center">{{newsItem.headline}}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab> -->
+                    <!-- <mat-tab label="Top News">
+                        <div class="container mt-4">
+                            <div class="row">
+                                <div *ngFor="let newsItem of newsData" class="col-12 col-lg-6 mb-4" (click)="newsModal(newsItem)">
+                                    <div class="card flex-lg-row"> 
+                                        <img src="{{ newsItem.image }}" class="card-img-top card-img-lg-side my-auto" alt="..." style="width: 100%; max-width: none;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ newsItem.headline }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>                     -->
+
+                    <mat-tab label="Top News">
+                        <div class="container mt-4">
+                            <div class="row">
+                                <div *ngFor="let newsItem of newsData" class="col-12 col-lg-6 mb-4" (click)="newsModal(newsItem)">
+                                    <div class="card ">
+                                        <img src="{{ newsItem.image }}" class="card-img-top d-block d-lg-none" alt="...">
+                                        <div class="row no-gutters">
+                                            <div class="col-lg-3 d-none d-lg-block">
+                                                <img src="{{ newsItem.image }}" class="card-img" alt="..." style="width: 150px; height: 80px; margin:10px;">
+                                            </div>
+                                            <div class="col-12 col-lg-9">
+                                                <div class="card-body text-center">
+                                                    <h5 class="card-title" style="text-align: center; display: flex; justify-content: center; align-items: center;">{{ newsItem.headline }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <!-- <mat-tab label="Top News">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let newsItem of newsData"
+                                    (click)="newsModal(newsItem)">
+                                    <div class="custom-card">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4 order-md-1">
+                                                <div class="card-img-container">
+                                                    <img [src]="item.image" alt="News Image" class="card-img">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 order-md-2"> 
+                                                <div class="card-body text-center text-md-start">
+                                                    <h5 class="card-title">{{ item.title }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+
+                    
+                    <mat-tab label="Top News">
+                        <div class="container mt-4">
+                          <div class="row">
+                            <div *ngFor="let newsItem of newsData" class="col-12 col-lg-6 mb-4">
+                              <div class="card h-100" (click)="newsModal(newsItem)">
+                                <img src="{{ newsItem.image }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                  <h5 class="card-title">{{ newsItem.headline }}</h5>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab> -->
+
+                    <!-- <mat-tab label="Top News">
+                        <div class="container mt-4">
+                          <div class="row">
+                            <div *ngFor="let newsItem of newsData" class="col-12 col-lg-6 mb-4" (click)="newsModal(newsItem)">
+                              <div class="card">
+                                <div class="row no-gutters">
+                                  <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center p-2">
+                                    <img src="{{ newsItem.image }}" class="card-img" alt="..." style="width: 175px; height: 80px; margin:5px;">
+                                  </div>
+                                  <div class="col-lg-6 d-flex align-items-center">
+                                    <div class="card-body text-center">
+                                      <h5 class="card-title m-0">{{ newsItem.headline }}</h5>
+                                    </div>
+                                  </div>
+                                </div>
+                                <img src="{{ newsItem.image }}" class="card-img-top d-block d-lg-none" alt="...">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab> -->
+                      
+
+                    <!-- <mat-tab label="Top News">
+                        <div class="container mt-4">
+                            <div class="row">
+                                <div *ngFor="let newsItem of newsData" class="col-12 col-lg-6 mb-4" (click)="newsModal(newsItem)">
+                                    <div class="card h-100">
+                                        <div class="d-none d-lg-block image-container" style="height: 200px;"> 
+                                            <img src="{{ newsItem.image }}" class="card-img-side" alt="...">
+                                        </div>
+                                        <img src="{{ newsItem.image }}" class="card-img-top d-block d-lg-none" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ newsItem.headline }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab> -->
+                    
+                      
+                    
+                    
+                    
+                    <mat-tab label="Charts">
+                        <div class="mb-4 mt-4">
+                        <highcharts-chart 
+                        [Highcharts]="chart"
+                        [options]="chartOptions"
+                        [constructorType]="createChart"
+                        style="width: 100%; height: 600px; display: block;">
+                        </highcharts-chart>
+                    </div>
+                    </mat-tab>
+
+                    <mat-tab label="Insights">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6 text-center">
+                                <h2 class="m-0 mt-2">Insider Sentiments</h2>
+                                <table class="table mx-auto" style="table-layout: fixed; width: 100%;">
+                                    <tr>
+                                        <th>{{searchResult.profile.name}}</th>
+                                        <th>MSPR</th>
+                                        <th>Change</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>{{totalMSPR | number:'1.0-2' }}</td>
+                                        <td>{{totalChange}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Positive</th>
+                                        <td>{{positiveMSPR  | number:'1.0-2' }}</td>
+                                        <td>{{positiveChange}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Negative</th>
+                                        <td>{{negativeMSPR | number:'1.0-2' }}</td>
+                                        <td>{{negativeChange}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <highcharts-chart 
+                                [Highcharts]="recommendCharts"
+                                [options]="recommendOptions"
+                                style="width: 100%;  display: block; height: 325px;">
+                                </highcharts-chart>
+                            </div>
+                            <div class="col-md-6">
+                                <highcharts-chart 
+                                [Highcharts]="estimateCharts"
+                                [options]="estimateOptions"
+                                style="display: block; width: 100%; height: 325px; ">
+                                </highcharts-chart>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <div class="col"></div>
+        </div>  
+    </div>
+    <!-- <div *ngIf="isError" class="container mt-5">
+        <div class="alert alert-danger text-center text-dark" role="alert">
+            No data found. Please enter a valid Ticker.
+        </div>
+    </div> -->
+</div>
+</div>
+<!-- <div *ngIf="showDetailComponent" class="padding-bottom-4">
+    <section class="container margin-top-5" *ngIf="!showError">
+        <div class="row justify-content-md-center">
+            <div class="col text-center" *ngIf="searchResult && searchResult.details">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <h1 class="mb-0">{{ searchResult.details.symbol }}</h1>
+                    <div class="star-btn-group mt-2">
+                        <button class="star-button" (click)="updateWishlist(searchResult.details.symbol, searchResult.details.name)" *ngIf="!isFavorite">
+                            <i class="far fa-star"></i>
+                        </button>
+                        <button class="star-button" (click)="updateWishlist(searchResult.details.symbol)" *ngIf="isFavorite">
+                            <i class="fas fa-star" id="favoriteIcon"></i>
+                        </button>
+                    </div>
+                    <h2 class="company-name mt-2">{{searchResult.details.name}}</h2>
+                    <p class="exchange">{{searchResult.details.exchange}}</p>
+                    <div class="action-buttons mt-2">
+                        <button (click)="buyStock()" class="btn-success">Buy</button>
+                        <button (click)="sellStock()" *ngIf="isHolding" class="btn-danger">Sell</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col text-center" *ngIf="searchResult && searchResult.quotation">
+                <div [ngClass]="{'positive': searchResult.quotation.change > 0, 'negative': searchResult.quotation.change <= 0}">
+                    <h1>{{searchResult.quotation.current}}</h1>
+                    <h2>{{ searchResult.quotation.change > 0 ? '▲' : '▼' }} {{searchResult.quotation.change}} ({{searchResult.quotation.percentageChange}}%)</h2>
+                </div>
+                <p>{{currentTime}}</p>
+            </div>
+        </div>
+        <div class="market-status text-center">
+            <p *ngIf="marketStatus" class="open">Market is Open</p>
+            <p *ngIf="!marketStatus" class="closed">Market is Closed on {{prevTime}}</p>
+        </div>
+    </section> -->
+
+

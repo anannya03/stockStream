@@ -1,0 +1,13 @@
+{
+  "name": "stock-attempt2",
+  "version": "1.0.0",
+  "scripts": {
+    "install:frontend": "npm --prefix frontend install frontend",
+    "build:frontend": "npm --prefix frontend run build",
+    "install:backend": "npm --prefix backend install backend",
+    "start:backend": "node backend/server.js",
+    "start": "npm run build:frontend && npm run start:backend",
+    "deploy": "gcloud builds submit --tag gcr.io/csci571anannya3/stock-service && gcloud run deploy stock-service --image gcr.io/csci571anannya3/stock-service --platform managed"
+  },
+  "private": true
+}
